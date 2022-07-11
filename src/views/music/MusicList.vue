@@ -1,10 +1,6 @@
 <template>
   <div>
-    <!-- <MusicListView :highmusic="HighMusic"/>
-    <MusicListView  :newmusic="NewMusic"/>
-    <MusicListView  :orimusic="OriMusic"/>
-    <MusicListView  :hotmusic="HotMusic"/> -->
-
+    <!-- 调用组件 从父组件传递数据到子组件 : -->
     <MusicListView :title="high" :highmusic="HighMusic"/>
     <MusicListView :title="news" :newmusic="NewMusic"/>
     <MusicListView :title="ori" :orimusic="OriMusic"/>
@@ -22,16 +18,19 @@ export default {
   },
   data(){
     return{
+        //存储读取到的各榜单数据
         HighMusic:[],
         NewMusic:[],
         HotMusic:[],
         OriMusic:[],
+        //存储榜单标题
         high:'',
         news:'',
         ori:'',
         hot:''
     }
   },
+  // 在created生命周期调用各方法
   created(){
       this.getHighMusic()
       this.getNewMusic()
@@ -41,12 +40,12 @@ export default {
   },
   methods: {
     getHighMusic () {
-      axios({
-        url: '/playlist/track/all?id=19723756&limit=3&offset=0',  /*飙升榜接口地址*/
-        method: 'post'
-      })
+        axios({
+          url: '/playlist/track/all?id=19723756&limit=3&offset=0',  /*飙升榜接口地址*/
+          method: 'post'
+        })
         .then(res => {
-            console.log("飙升榜数据：", res.data.songs)
+            // console.log("飙升榜数据：", res.data.songs)
             this.HighMusic=res.data.songs
         })
         .catch(err => {
@@ -54,12 +53,12 @@ export default {
         })
     },
     getNewMusic () {
-      axios({
-        url: '/playlist/track/all?id=3779629&limit=3&offset=0',  /*新歌榜接口地址*/
-        method: 'post'
-      })
+        axios({
+          url: '/playlist/track/all?id=3779629&limit=3&offset=0',  /*新歌榜接口地址*/
+          method: 'post'
+        })
         .then(res => {
-            console.log("新歌榜数据：", res.data.songs)
+            // console.log("新歌榜数据：", res.data.songs)
             this.NewMusic=res.data.songs
         })
         .catch(err => {
@@ -67,12 +66,12 @@ export default {
         })
     },
     getHotMusic () {
-      axios({
-        url: '/playlist/track/all?id=3778678&limit=3&offset=0',  /*热歌榜接口地址*/
-        method: 'post'
-      })
+        axios({
+          url: '/playlist/track/all?id=3778678&limit=3&offset=0',  /*热歌榜接口地址*/
+          method: 'post'
+        })
         .then(res => {
-            console.log("热歌榜数据：", res.data.songs)
+            // console.log("热歌榜数据：", res.data.songs)
             this.HotMusic=res.data.songs
         })
         .catch(err => {
@@ -80,12 +79,12 @@ export default {
         })
     },
     getOriMusic () {
-      axios({
-        url: '/playlist/track/all?id=2884035&limit=3&offset=0',  /*原创榜接口地址*/
-        method: 'post'
-      })
+        axios({
+          url: '/playlist/track/all?id=2884035&limit=3&offset=0',  /*原创榜接口地址*/
+          method: 'post'
+        })
         .then(res => {
-            console.log("原创榜数据：", res.data.songs)
+            // console.log("原创榜数据：", res.data.songs)
             this.OriMusic=res.data.songs
         })
         .catch(err => {
@@ -93,13 +92,12 @@ export default {
         })
     },
     getTitle () {
-      axios({
-        url: '/toplist',  /*歌单名称接口地址*/
-        method: 'post'
-      })
+        axios({
+          url: '/toplist',  /*歌单名称接口地址*/
+          method: 'post'
+        })
         .then(res => {
-            console.log("榜单标题：", res.data.list)
-            // console.log(res.data.list[0].name)
+            // console.log("榜单标题：", res.data.list)
             this.high=res.data.list[0].name,
             this.news=res.data.list[1].name,
             this.ori=res.data.list[2].name,

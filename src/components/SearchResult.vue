@@ -1,12 +1,8 @@
 <template>
   <div class="result">
+      <!-- 关键词搜索结果 -->
       <ul>
-          <router-link 
-            tag="li" 
-            v-for="(item,index) in list" 
-            :key="index" 
-            style="color:#a8a8a8;margin:0.8rem;font-size:1.1rem;" 
-            :to="`/player/${item.id}`">
+          <router-link tag="li" v-for="(item,index) in list" :key="index" style="color:#a8a8a8;margin:0.8rem;font-size:1.1rem;" :to="`/player/${item.id}`">
                 <i class="el-icon-search"></i>{{cutString(item.name)}}
           </router-link>
       </ul>
@@ -34,17 +30,18 @@ export default {
     methods:{
         getResult () {
             axios({
-                url: '/cloudsearch?limit=15&&keywords='+this.result+'',  /*每日推荐歌曲接口地址*/
+                url: '/cloudsearch?limit=15&&keywords='+this.result+'',  /*关键词搜索结果*/
                 method: 'post'
             })
             .then(res => {
-                console.log("搜索结果：", res.data.result.songs)
+                // console.log("搜索结果：", res.data.result.songs)
                 this.list=res.data.result.songs
             })
             .catch(err => {
                 console.log(err)
             })
         },
+        // 限制文字长度
         cutString(str){
             if(str.length>20){
                 return str.substring(0,20)+"..."

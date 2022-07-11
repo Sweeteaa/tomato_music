@@ -1,7 +1,11 @@
 <template>
   <div class="bottom">
+      <!-- 底部导航栏 -->
       <Bottom />
-      <router-view></router-view>
+      <!-- keep-alive路由缓存 -->
+      <keep-alive>
+        <router-view></router-view>
+      </keep-alive>
   </div>
 </template>
 
@@ -9,13 +13,11 @@
 import Bottom from "../components/Bottom.vue"
 export default {
     components:{
-        Bottom
+        Bottom//导入底部导航栏
     }
 }
 </script>
 
 <style>
-
-
 
 </style>

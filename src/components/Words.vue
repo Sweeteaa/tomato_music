@@ -1,8 +1,8 @@
 <template>
   <div class="Container">
+    <!-- 歌词 -->
     <div class="Lrc" ref="Lrc">
       <p v-for="(lrc,key,index) in Word" :key="index" class="Lrc-p" :class="{'active':currentTime > allKeys[index] && currentTime <allKeys[index+1]}">
-        <!-- <span v-if="currentTime > allKeys[index] && currentTime <allKeys[index+1]">{{lrc}}</span> -->
         <span>{{cutString(lrc)}}{{scrollLrc(index)}}</span>
       </p>
     </div>
@@ -39,16 +39,13 @@ export default {
                 method: 'post'
             })
             .then(res => {
-              console.log(this.id)
-                // console.log("音乐歌词：", res.data.lrc.lyric)
-                // this.Word=res.data.lrc.lyric
-                // this.filterWord(res.data.lrc.lyric)
                 this.Word=this.filterWord(res.data.lrc.lyric)
             })
             .catch(err => {
                 console.log(err)
             })
         },
+        // 对获取到的歌词正则提取 并且更换歌词时间格式
         filterWord(word){
           if(!word) return;
           var lrc={}
@@ -67,15 +64,17 @@ export default {
           }
           this.lrcData=lrc;
           this.getAllKey(lrc)
-          console.log(this.getAllKey(lrc))
+          // console.log(this.getAllKey(lrc))
           return this.lrcData
         },
+        // 得到时间
         getAllKey(lrcArr){
           for(var key in lrcArr){
             this.allKeys.push(key)
           }
           return this.allKeys
         },
+        // 歌词滚动效果 在某段时间内出现对应歌词
         scrollLrc(index){
             // console.log(this.currentTime)
             if(this.currentTime > this.allKeys[index] && this.currentTime < this.allKeys[index+1]){

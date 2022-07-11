@@ -1,7 +1,8 @@
 <template>
   <div>
-      <ul class="top-bottom"> 
-          <li><router-link to="/" exact><i class="el-icon-house" ></i><p style="font-size:0.5rem">首页</p></router-link></li>
+      <!-- 底部导航栏 -->
+      <ul class="b-top-bottom"> 
+          <li><router-link to="/home" exact><i class="el-icon-house" ></i><p style="font-size:0.5rem">首页</p></router-link></li>
           <li><router-link to="/music"><i class="el-icon-headset" ></i><p style="font-size:0.5rem">音乐馆</p></router-link></li>
           <li><router-link to="/mine"><i class="el-icon-user" ></i><p style="font-size:0.5rem">我的</p></router-link></li>
       </ul>
@@ -15,7 +16,7 @@ export default {
 </script>
 
 <style scoped>
-    .top-bottom{
+    .b-top-bottom{
         background-color: #383676;
         display: flex;
         position: fixed;
@@ -25,14 +26,14 @@ export default {
         height: 4rem;
         
     }
-    li{
+    .b-top-bottom li{
         flex: 1;
         text-align:center;
         list-style:outside none;
     }
 
 
-    li i{
+    .b-top-bottom li i{
         font-size: 1.9rem;
     }
 
@@ -46,5 +47,4 @@ export default {
     .active{
         color: #FF5753;
     }
-
 </style>

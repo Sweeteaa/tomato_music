@@ -1,170 +1,169 @@
 <template>
-    <div>
-      <!-- 歌单 -->
+  <div>
+      <!-- 排行榜 -->
       <!-- 导航栏 -->
-        <van-nav-bar title="歌单" left-arrow @click-left="$router.back()"/>
-        <div class="cp-big">
-            <!-- 歌单图片 -->
-            <div class="cp-simg">
-                <img :src="message.coverImgUrl">
+      <van-nav-bar :title="detail.name" left-arrow @click-left="$router.back()"/>
+      <div class="mr-big">
+            <!-- 图片 -->
+            <div class="mr-simg">
+                <img :src="detail.coverImgUrl">
+                <p style="position: absolute;top: 2.2rem;left: 5.5rem;font-size:5.2rem;font-family:LiSu;color:white;text-shadow: 1.3px 0px #eb7a7a;">{{detail.name}}</p>
             </div>
-            <!-- 歌单信息 -->
-            <div class="cp-ssimg">
-                <img :src="message.coverImgUrl">
-                <div class="cp-scrip">
-                    <p style="color:white;font-size:1.1rem;">{{message.name}}</p>
-                    <p style="color:rgb(227 215 215);margin-top:2rem;font-size:0.9rem;">{{cutString(message.description)}}</p>
-                </div>
-            </div>
-            <!-- 歌单歌曲 -->
-            <div class="cp-flex-direction">
-                <router-link class="cp-column" v-for="(item,index) in songs" :key="index" :to="`/player/${item.id}`">
-                        <div class="cp-flex-body" >
-                            <div class="cp-icon"><i class="el-icon-video-play"></i></div>
-                            <div class="cp-flex-column">
+            <!-- 榜单歌曲 -->
+            <div class="mr-flex-direction">
+                <router-link class="mr-column" v-for="(item,index) in songs" :key="index" :to="`/player/${item.id}`">
+                        <div class="mr-flex-body" >
+                            <div class="mr-icon">{{index+1}}</div>
+                            <div class="mr-flex-column">
                                 <div>
                                     <p style="color:aliceblue;font-size:1.1rem">{{cutString(item.name)}}</p>
                                 </div>
-                                <div class="cp-name">
+                                <div class="mr-name">
                                     <div v-for="(item,index) in item.ar" :key="index">
                                         <p style="color:rgba(240, 248, 255, 0.774);font-size:0.2rem">{{item.name}}&nbsp;</p>
                                     </div>
                                     <div style="color: #686666;font-size: 0.8rem;">- {{cutString(item.al.name)}}</div>
                                 </div>
                             </div>
-                            <div class="cp-icont"><i class="el-icon-more"></i></div>
+                            <div class="mr-icont"><i class="el-icon-more"></i></div>
                         </div>
                 </router-link>
             </div>
-        </div>
-    </div>
+      </div>
+  </div>
 </template>
 
 <script>
 import axios from '@/utils/request.js'
 export default {
-    name:"PlayList",
+    name:'MusicListRank',
     data(){
         return{
-            message:"",
-            songs:[]
+            songs:'',//存储数据
+            detail:''
         }
     },
     // 在created生命周期调用各方法
     created(){
-        this.getMusicMes()
-        this.getMusicList()
+        this.getMusic(),
+        this.getDetail()
     },
     methods:{
-        getMusicMes () {
+        getMusic () {
             axios({
-                url: '/playlist/detail?id='+this.$route.params.id+'',  /*歌单详细信息*/
+                url: '/playlist/track/all?id='+this.$route.params.id+'', //获取榜单音乐
                 method: 'post'
             })
             .then(res => {
-                // console.log("歌单信息：", res.data.playlist)
-                this.message=res.data.playlist
-            })
-            .catch(err => {
-                console.log(err)
-            })
-        },getMusicList () {
-            axios({
-                url: '/playlist/track/all?id='+this.$route.params.id+'',  /*歌单所有歌曲*/
-                method: 'post'
-            })
-            .then(res => {
-                // console.log("歌单列表：", res.data.songs)
+                // console.log("排行榜歌曲：", res.data.songs)
                 this.songs=res.data.songs
             })
             .catch(err => {
                 console.log(err)
             })
         },
-        // 限制文字长度
+        getDetail () {
+            axios({
+                url: '/playlist/detail?id='+this.$route.params.id+'', //获取榜单详细信息
+                method: 'post'
+            })
+            .then(res => {
+                // console.log("榜单详细信息：", res.data.playlist)
+                this.detail=res.data.playlist
+            })
+            .catch(err => {
+                console.log(err)
+            })
+        },
+        // 限定文字长度
         cutString(str){
-            if(str.length>26){
-                return str.substring(0,26)+"..."
+            if(str.length>10){
+                return str.substring(0,10)+"..."
             }
             return str;
         },
+        cutMsg(str){
+            if(str.length>15){
+                return str.substring(0,15)+"..."
+            }
+            return str;
+        }
     }
 }
 </script>
-
 <style>
-    /* 隐藏滚动条 */
-    .cp-big::-webkit-scrollbar {
-        display: none;
+    .mr-simg{
+        position: relative;
+        background-position: center;
+        background-blend-mode: normal;
+        height: 12rem;
     }
 
-    .cp-big{
-        display: -webkit-flex;
-        flex-direction: column;
-        height: 56rem;
-        margin-top: 6rem;
-        position: fixed;
-        top: -6rem;
-        overflow-y: auto;
-        left: 0;
-        right: 0;
-        bottom: 0;
+    .mr-simg img{
+        width: 25.9rem;
+        height: 12rem;
+        filter: blur(0.4rem);
     }
 
-    .cp-simg img{
-        width: 25.8rem;
-        height: 14.9rem;
-        filter: blur(2.8rem);
-    }
-
-    .cp-ssimg{
+    .mr-msg{
+        background-color: #393568;
+        width: 22rem;
+        height: 9rem;
         position: absolute;
-        top: 5.7rem;
-        left: 1rem;
-        display: flex;
-    }
-
-    .cp-ssimg img{
-        width: 10rem;
-        height: 10rem;
+        top: 20.5rem;
+        left: 1.5rem;
         border-radius: 1rem;
+        padding: 0.6rem;
     }
 
-    .cp-scrip{
-        margin-left: 0.5rem;
-        margin-top: 1rem;
-        width: 14.2rem;
-    }
-
-    .cp-icon{
-        font-size: 1.4rem;
+    .mr-icon{
+        font-size: 1.1rem;
         margin: 0.6rem;
         color: #FF5753;
+        line-height: 1.6rem;
+        width: 2rem;
+        text-align: center;
     }
 
-    .cp-icont{
+    .mr-icont{
         font-size: 1.3rem;
         color: #918787;
         margin-left: 2.9rem;
         margin-top: 0.7rem;
     }
 
-    .cp-flex-direction {
+    .mr-big::-webkit-scrollbar {
+        display: none;
+    }
+
+    .mr-big{
+        display: -webkit-flex;
+        flex-direction: column;
+        height: 53rem;
+        margin-top: 6rem;
+        position: fixed;
+        top: -3rem;
+        overflow-y: auto;
+        left: 0;
+        right: 0;
+        bottom: 0;
+    }
+
+    .mr-flex-direction {
         display: flex;
         display: -webkit-flex;
         flex-direction: column;
         height: 18rem;
-        margin-top: 2rem;
     }
 
-    .cp-column {
+    .mr-column {
         width: 25.9rem;
         height: 3.6rem;
-        background-color:#262345;
+        background-color: #262345;
     }
     /* 大盒子内三个小盒子 */
 
-    .cp-flex-row {
+    .mr-flex-row {
         flex-direction: row;
         display: flex;
         width: 4rem;
@@ -172,37 +171,37 @@ export default {
         padding-top: 0.5rem;
     }
 
-    .cp-flex-column {
+    .mr-flex-column {
         flex-direction: column;
         display: flex;
         height: 4rem;
         width: 17rem;
     }
 
-    .cp-flex-body {
+    .mr-flex-body {
         display: flex;
         margin-top: 0.4rem;
     }
 
 
-    .cp-flex-row-img {
+    .mr-flex-row-img {
         height: 3rem;
         width: 3rem;
         border-radius: 0.5rem;
     }
 
-    .cp-item{
+    .mr-item{
         float: left;
         width: 7rem;
         height: 10rem;
     }
 
-    .cp-main{
+    .mr-main{
         font-size: 14px;
         font-weight: 500;
     }   
 
-    .cp-name{
+    .mr-name{
         width: 24rem;
         display: flex;
     }
