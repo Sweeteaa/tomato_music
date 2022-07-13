@@ -5,7 +5,7 @@
       <van-nav-bar :title="this.$route.params.name" left-arrow @click-left="$router.back()"/>
       <!-- 歌手照片 -->
       <div class="ss-simg">
-          <img :src="detail.cover">
+          <img v-lazy="detail.cover">
       </div>
       <!-- 歌手简介 -->
       <div class="ss-msg">

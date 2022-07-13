@@ -6,11 +6,11 @@
         <div class="cp-big">
             <!-- 歌单图片 -->
             <div class="cp-simg">
-                <img :src="message.coverImgUrl">
+                <img v-lazy="message.coverImgUrl">
             </div>
             <!-- 歌单信息 -->
             <div class="cp-ssimg">
-                <img :src="message.coverImgUrl">
+                <img v-lazy="message.coverImgUrl">
                 <div class="cp-scrip">
                     <p style="color:white;font-size:1.1rem;">{{message.name}}</p>
                     <p style="color:rgb(227 215 215);margin-top:2rem;font-size:0.9rem;">{{cutString(message.description)}}</p>

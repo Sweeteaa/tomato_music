@@ -2,7 +2,7 @@
   <div class="m-Container">
     <!-- 我的界面上半部分 -->
     <div class="m-image">
-        <img :src="Message.avatarUrl">
+        <img v-lazy="Message.avatarUrl">
         <button>设置</button>
         <div class="m-name">
             <p style="color: aliceblue;font-size: 3.5rem;">{{Message.nickname}}</p>

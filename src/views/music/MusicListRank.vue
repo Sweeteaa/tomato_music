@@ -6,7 +6,7 @@
       <div class="mr-big">
             <!-- 图片 -->
             <div class="mr-simg">
-                <img :src="detail.coverImgUrl">
+                <img v-lazy="detail.coverImgUrl">
                 <p style="position: absolute;top: 2.2rem;left: 5.5rem;font-size:5.2rem;font-family:LiSu;color:white;text-shadow: 1.3px 0px #eb7a7a;">{{detail.name}}</p>
             </div>
             <!-- 榜单歌曲 -->

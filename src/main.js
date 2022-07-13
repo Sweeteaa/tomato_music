@@ -3,7 +3,12 @@ import App from './App.vue'
 import router from './router'
 import "./assets/css/common.css"
 import { Icon, Carousel, CarouselItem } from 'element-ui';
-import { Search, NavBar, Button, Cell, List, Toast, Form, Field, CellGroup } from 'vant';
+import { Search, NavBar, Button, Cell, List, Toast, Form, Field, CellGroup, Lazyload } from 'vant';
+// import VueLazyload from 'vue-lazyload'
+
+Vue.use(Lazyload)
+
+
 
 // element&vant
 Vue.config.productionTip = false

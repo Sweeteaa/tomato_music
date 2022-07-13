@@ -4,7 +4,7 @@
         <van-nav-bar title="歌曲" left-arrow @click-left="$router.back()"/>
         <!-- 歌曲专辑图片 -->
         <div class="player-pic">
-            <img :src="MusicMes.al.picUrl"/>
+            <img v-lazy="MusicMes.al.picUrl"/>
         </div>
         <!-- 歌曲名字 -->
         <div class="player-mes">

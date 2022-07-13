@@ -5,7 +5,7 @@
         <!-- 跳转到歌手页面 -->
         <router-link class="hs-column" v-for="(item,index) in singers" :key="index" :to="`/singer/${item.id}/${item.name}/${item.fansCount}`">
             <div class="hs-sing" >
-                <img :src="item.picUrl">
+                <img v-lazy="item.picUrl">
                 <div class="hs-sing-name">{{item.name}}</div>
             </div>
         </router-link>

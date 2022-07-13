@@ -11,7 +11,7 @@
                 <!-- 飙升榜 -->
                 <router-link :to="`/rank/${id}`">
                     <div class="mlv-item" v-for="(item,index) in highmusic" :key="index">
-                        <img :src="item.al.picUrl">
+                        <img v-lazy="item.al.picUrl">
                         <div class="mlv-main">{{(index+1)+'. '+cutString(item.name)}}</div>
                         <div class="mlv-name-cut">
                             <p class="mlv-gray" v-for="(items,index) in item.ar" :key="index">
@@ -23,7 +23,7 @@
                 <!-- 新歌榜 -->
                 <router-link :to="`/rank/${id2}`">
                     <div class="mlv-item" v-for="(item,index) in newmusic" :key="index">
-                        <img :src="item.al.picUrl">
+                        <img v-lazy="item.al.picUrl">
                         <div class="mlv-main">{{(index+1)+'. '+cutString(item.name)}}</div>
                         <div class="mlv-name-cut">
                             <p class="mlv-gray" v-for="(items,index) in item.ar" :key="index">
@@ -35,7 +35,7 @@
                 <!-- 原创榜 -->
                 <router-link :to="`/rank/${id3}`">
                     <div class="mlv-item" v-for="(item,index) in orimusic" :key="index">
-                        <img :src="item.al.picUrl">
+                        <img v-lazy="item.al.picUrl">
                         <div class="mlv-main">{{(index+1)+'. '+cutString(item.name)}}</div>
                         <div class="mlv-name-cut">
                             <p class="mlv-gray" v-for="(items,index) in item.ar" :key="index">
@@ -47,7 +47,7 @@
                 <!-- 热歌榜 -->
                 <router-link :to="`/rank/${id4}`">
                     <div class="mlv-item" v-for="(item,index) in hotmusic" :key="index">
-                        <img :src="item.al.picUrl">
+                        <img v-lazy="item.al.picUrl">
                         <div class="mlv-main">{{(index+1)+'. '+cutString(item.name)}}</div>
                         <div class="mlv-name-cut">
                             <p class="mlv-gray" v-for="(items,index) in item.ar" :key="index">
